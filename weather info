@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+
+
+</head>
+
+<body>
+    <p id="Output"> Default Text</p>
+    <input id="city">
+    <button onclick="show_temp()">Submit</button>
+
+    <script type="text/javascript">
+       function show_temp() {
+
+    document.getElementById("Output").style.color = "red";
+    document.getElementById("Output").style.fontSize = "20px";
+
+    city = document.getElementById("city").value;
+
+    httprequest = new XMLHttpRequest();
+    url = "https://api.weatherbit.io/v2.0/current?city=" + city + "&key=c4b68faccb314b50a7f85953d30a54c6&include=minutely";
+    httprequest.open("GET", url);
+    httprequest.send();
+
+    httprequest.onreadystatechange = function() {
+
+        if (this.readyState == 4 && this.status == 200) {
+            user_data = JSON.parse(this.responseText);
+            document.getElementById("Output").innerHTML = user_data.data[0].temp;
+        }
+    }
+}
+
+    </script>
+</body>
+
+</html>
